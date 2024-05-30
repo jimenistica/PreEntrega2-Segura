@@ -1,28 +1,50 @@
 //Cotizador aproximado de taller de chapería y pintura
 //Está pensado para que hayan 3 secciones, en vez de ciclos serán casillas a marcar por el cliente.
 
-
 let cotizacion;
 let opcion;
 let sumaCambio = 0;
 let sumaReparacion = 0;
 let sumaPintura = 0;
 let total;
+let piezasSeleccionadas = []; //array de objetos -_-
+//piezasSeleccionadas{
+// tipo: "cambio/reparacion/pintura"
+// pieza: "una pieza"
+// costo: "el costo específico del trabajo (no la suma)"
+//}
 
-precioCambio ={
-  paragolpes_guardabarro: 15000,
-  capot_puerta_baul_techo: 20000,
-  faro_opticas_manijas_levantavidrio: 10000
+precioCambio = {
+  paragolpes: 15000,
+  capot: 20000,
+  guardabarros: 15000,
+  puerta: 20000,
+  tapa_baul: 20000,
+  techo: 20000,
+  faro: 10000,
+  opticas: 10000,
+  manijas: 10000,
+  levantavidrio: 10000,
 };
-precioReparacion={
-  paragolpes_guardabarro: 7000,
-  capot_puerta_baul_techo: 10000,
-  faro_opticas_manijas_levantavidrio: 5000
+precioReparacion = {
+  paragolpes: 7000,
+  capot: 10000,
+  guardabarros: 7000,
+  puerta: 10000,
+  tapa_baul: 10000,
+  techo: 10000,
+  faro: 5000,
+  opticas: 5000,
+  manijas: 5000,
+  levantavidrio: 5000,
 };
-precioPintura={
-  paragolpes_guardabarro: 90000,
-  capot_techo: 140000,
-  puerta_tapa_baul: 110000
+precioPintura = {
+  paragolpes: 90000,
+  capot: 140000,
+  guardabarros: 90000,
+  puerta: 110000,
+  tapa_baul: 110000,
+  techo: 140000,
 };
 
 function cotizarChaperia() {
@@ -50,7 +72,7 @@ function cotizarChaperia() {
   }
 }
 function cotizarCambio() {
-  let opcion3 = ""; 
+  let opcion3 = "";
   while (opcion3 !== "0") {
     opcion3 = prompt(`¿Qué pieza desea cambiar?
                                     1. Paragolpes
@@ -64,36 +86,58 @@ function cotizarCambio() {
                                     9. Manijas
                                     10.Levantavidrio
                                     0. Volver`);
+    let pieza = "";
     switch (opcion3) {
       case "1":
-      case "3":
-        alert("Agregado 1 o 3");
-        sumaCambio += precioCambio.paragolpes_guardabarro;
-        break;
-      case "7":
-      case "8":
-      case "9":
-      case "10":
-        alert("Agregado 4,7,8,9,10");
-        sumaCambio += precioCambio.faro_opticas_manijas_levantavidrio;
+        pieza = "paragolpes";
         break;
       case "2":
+        pieza = "capot";
+        break;
+      case "3":
+        pieza = "guardabarros";
+        break;
       case "4":
+        pieza = "puerta";
+        break;
       case "5":
+        pieza = "tapa_baul";
+        break;
       case "6":
-        alert("Agregado 2,5");
-        sumaCambio += precioCambio.capot_puerta_baul_techo;
+        pieza = "techo";
+        break;
+      case "7":
+        pieza = "faro";
+        break;
+      case "8":
+        pieza = "opticas";
+        break;
+      case "9":
+        pieza = "manijas";
+        break;
+      case "10":
+        pieza = "levantavidrio";
         break;
       case "0":
-        alert("volviendo");
+        alert("Volviendo");
         return;
       default:
         alert("Ingrese una opción válida");
         break;
     }
-    alert("El precio del cambio es: $" + sumaCambio);
+    if (pieza !== "") {
+      sumaCambio += precioCambio[pieza];
+      piezasSeleccionadas.push({
+        tipo: "cambio",
+        pieza: pieza,
+        costo: precioCambio[pieza],
+      });
+      alert(`Agregado ${pieza}. Precio del cambio: $ ${precioCambio[pieza]}`);
+    }
+    alert("El precio total del cambio es: $" + sumaCambio);
   }
 }
+
 function cotizarReparacion() {
   let opcion4;
   while (opcion4 !== "0") {
@@ -109,34 +153,56 @@ function cotizarReparacion() {
                                     9. Manijas
                                     10.Levantavidrio
                                     0. Volver`);
+    let pieza = "";
     switch (opcion4) {
       case "1":
-      case "3":
-        alert("Agregado 1 o 3");
-        sumaReparacion += calcularDanio(precioReparacion.paragolpes_guardabarro);
-        break;
-      case "7":
-      case "8":
-      case "9":
-      case "10":
-        alert("Agregado 7,8,9,10");
-        sumaReparacion += calcularDanio(precioReparacion.faro_opticas_manijas_levantavidrio);
+        pieza = "paragolpes";
         break;
       case "2":
+        pieza = "capot";
+        break;
+      case "3":
+        pieza = "guardabarros";
+        break;
       case "4":
+        pieza = "puerta";
+        break;
       case "5":
+        pieza = "tapa_baul";
+        break;
       case "6":
-        alert("Agregado 2, 4,5,6");
-        sumaReparacion += calcularDanio(precioReparacion.capot_puerta_baul_techo);
+        pieza = "techo";
+        break;
+      case "7":
+        pieza = "faro";
+        break;
+      case "8":
+        pieza = "opticas";
+        break;
+      case "9":
+        pieza = "manijas";
+        break;
+      case "10":
+        pieza = "levantavidrio";
         break;
       case "0":
-        alert("volviendo");
+        alert("Volviendo");
         return;
       default:
         alert("Ingrese una opción válida");
         break;
     }
-    alert("El precio de la reparación es: $" + sumaReparacion);
+    if (pieza!=="") {
+      let costo = calcularDanio(precioReparacion[pieza]);
+      sumaReparacion += costo;
+      piezasSeleccionadas.push({
+        tipo: "reparacion",
+        pieza: pieza,
+        costo: costo,
+      });
+      alert(`Agregado ${pieza}. Precio de la reparación: $${costo}`);
+    }
+    alert("El precio total de la reparación es: $" + sumaReparacion);
   }
 }
 function calcularDanio(base) {
@@ -155,52 +221,85 @@ function cotizarPintura() {
                             5. Tapa baúl
                             6. Techo
                             0. Volver`);
+    let pieza = "";
     switch (opcion3) {
       case "1":
-      case "3":
-        alert("Agregado 1 o 3");
-        sumaPintura += precioPintura.paragolpes_guardabarro;
+        pieza = "paragolpes";
         break;
       case "2":
-      case "6":
-        alert("Agregado 2,6");
-        sumaPintura += precioPintura.capot_techo;
+        pieza = "capot";
+        break;
+      case "3":
+        pieza = "guardabarros";
         break;
       case "4":
-        alert("Agregado 4");
+        pieza = "puerta";
         let puerta = prompt(
-          "¿La puerta debe pintarse de ambos lados 1: Si, 2: No?"
+          "¿La puerta debe pintarse de ambos lados? 1: Sí, 2: No"
         );
+        let costoColor= pinturaDeColor(precioPintura[pieza]);
         if (puerta == "1") {
-          sumaPintura += precioPintura.puerta_tapa_baul * 1.5;
+          costoColor=costoColor*1.7
+          sumaPintura += costoColor;
+          piezasSeleccionadas.push({
+            tipo: "pintura",
+            pieza: pieza,
+            costo: costoColor,
+          });
+          alert(
+            `Agregado ${pieza}. Precio de la pintura: $${costoColor}`
+          );
         } else {
-          sumaPintura += precioPintura.puerta_tapa_baul;
+          sumaPintura += costoColor;
+          piezasSeleccionadas.push({
+            tipo: "pintura",
+            pieza: pieza,
+            costo: costoColor,
+          });
+          alert(
+            `Agregado ${pieza}. Precio de la pintura: $${costoColor}`
+          );
         }
-        break;
+      
+        alert(`El precio total de la pintura es: $${sumaPintura}`);
+        continue;
       case "5":
-        alert("Agregado 5");
-        sumaPintura += precioPintura.puerta_tapa_baul;
+        pieza = "tapa_baul";
+        break;
+      case "6":
+        pieza = "techo";
         break;
       case "0":
-        alert("volviendo");
+        alert("Volviendo");
         return;
       default:
         alert("Ingrese una opción válida");
         break;
     }
-    alert("El precio de la pintura es: $" + sumaPintura);
-  }
-    
-}
-function pinturaDeColor(sumaPintura) {
-  let color=prompt('La pintura es color (1) Blanco, (2) Otro')
-  if (color==2) {
-    return  sumaPintura=sumaPintura*1.3;
-  } else{
-    return sumaPintura;
+    if (pieza!=="") {
+      let costoColor= pinturaDeColor(precioPintura[pieza]);
+      sumaPintura += costoColor;
+      piezasSeleccionadas.push({
+        tipo: "pintura",
+        pieza: pieza,
+        costo: costoColor,
+      });
+      alert(
+        `Agregado ${pieza}. Precio de la pintura: $${costoColor}`
+      );
+    }
+    alert(`El precio total de la pintura es: $${sumaPintura}`);
   }
 }
 
+function pinturaDeColor(sumaPintura) {
+  let color = prompt("La pintura es color (1) Blanco, (2) Otro");
+  if (color == 2) {
+    return (sumaPintura = sumaPintura * 1.3);
+  } else {
+    return sumaPintura;
+  }
+}
 
 cotizacion = prompt(
   "Indique si la cotización es (1) particular o (2) por Seguro"
@@ -222,12 +321,11 @@ while (opcion !== "0") {
       break;
     case "2":
       cotizarPintura();
-      sumaPintura=pinturaDeColor(sumaPintura);
-      alert("El precio de la pintura es: $" + sumaPintura);
       break;
     case "0":
       total = total + sumaCambio + sumaReparacion + sumaPintura;
       alert("El precio total es: $" + total);
+      console.log(piezasSeleccionadas);
       break;
     default:
       alert("Ingrese un valor válido");
