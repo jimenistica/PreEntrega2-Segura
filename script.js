@@ -9,6 +9,21 @@ let sumaReparacion = 0;
 let sumaPintura = 0;
 let total;
 
+precioCambio ={
+  paragolpes_guardabarro: 15000,
+  capot_puerta_baul_techo: 20000,
+  faro_opticas_manijas_levantavidrio: 10000
+};
+precioReparacion={
+  paragolpes_guardabarro: 7000,
+  capot_puerta_baul_techo: 10000,
+  faro_opticas_manijas_levantavidrio: 5000
+};
+precioPintura={
+  paragolpes_guardabarro: 90000,
+  capot_techo: 140000,
+  puerta_tapa_baul: 110000
+};
 
 function cotizarChaperia() {
   let opcion2 = "";
@@ -53,21 +68,21 @@ function cotizarCambio() {
       case "1":
       case "3":
         alert("Agregado 1 o 3");
-        sumaCambio += 15000;
+        sumaCambio += precioCambio.paragolpes_guardabarro;
         break;
       case "7":
       case "8":
       case "9":
       case "10":
         alert("Agregado 4,7,8,9,10");
-        sumaCambio += 10000;
+        sumaCambio += precioCambio.faro_opticas_manijas_levantavidrio;
         break;
       case "2":
       case "4":
       case "5":
       case "6":
         alert("Agregado 2,5");
-        sumaCambio += 20000;
+        sumaCambio += precioCambio.capot_puerta_baul_techo;
         break;
       case "0":
         alert("volviendo");
@@ -98,21 +113,21 @@ function cotizarReparacion() {
       case "1":
       case "3":
         alert("Agregado 1 o 3");
-        sumaReparacion += calcularDanio(7000);
+        sumaReparacion += calcularDanio(precioReparacion.paragolpes_guardabarro);
         break;
       case "7":
       case "8":
       case "9":
       case "10":
-        alert("Agregado 4,7,8,9,10");
-        sumaReparacion += calcularDanio(5000);
+        alert("Agregado 7,8,9,10");
+        sumaReparacion += calcularDanio(precioReparacion.faro_opticas_manijas_levantavidrio);
         break;
       case "2":
       case "4":
       case "5":
       case "6":
-        alert("Agregado 2,5");
-        sumaReparacion += calcularDanio(10000);
+        alert("Agregado 2, 4,5,6");
+        sumaReparacion += calcularDanio(precioReparacion.capot_puerta_baul_techo);
         break;
       case "0":
         alert("volviendo");
@@ -144,12 +159,12 @@ function cotizarPintura() {
       case "1":
       case "3":
         alert("Agregado 1 o 3");
-        sumaPintura += 90000;
+        sumaPintura += precioPintura.paragolpes_guardabarro;
         break;
       case "2":
       case "6":
         alert("Agregado 2,6");
-        sumaPintura += 140000;
+        sumaPintura += precioPintura.capot_techo;
         break;
       case "4":
         alert("Agregado 4");
@@ -157,14 +172,14 @@ function cotizarPintura() {
           "¿La puerta debe pintarse de ambos lados 1: Si, 2: No?"
         );
         if (puerta == "1") {
-          sumaPintura += 180000;
+          sumaPintura += precioPintura.puerta_tapa_baul * 1.5;
         } else {
-          sumaPintura += 110000;
+          sumaPintura += precioPintura.puerta_tapa_baul;
         }
         break;
       case "5":
         alert("Agregado 5");
-        sumaPintura += 110000;
+        sumaPintura += precioPintura.puerta_tapa_baul;
         break;
       case "0":
         alert("volviendo");
