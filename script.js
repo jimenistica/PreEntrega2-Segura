@@ -1,5 +1,4 @@
 //Cotizador aproximado de taller de chapería y pintura
-//Está pensado para que hayan 3 secciones, en vez de ciclos serán casillas a marcar por el cliente.
 
 let cotizacion;
 let opcion;
@@ -7,12 +6,9 @@ let sumaCambio = 0;
 let sumaReparacion = 0;
 let sumaPintura = 0;
 let total;
-let piezasSeleccionadas = []; //array de objetos -_-
-//piezasSeleccionadas{
-// tipo: "cambio/reparacion/pintura"
-// pieza: "una pieza"
-// costo: "el costo específico del trabajo (no la suma)"
-//}
+let piezasSeleccionadas = []; 
+let cotizaciones=[];
+let idCotizacion=1;
 
 precioCambio = {
   paragolpes: 15000,
@@ -311,6 +307,8 @@ if (cotizacion == 2) {
 }
 
 while (opcion !== "0") {
+  
+ 
   opcion = prompt(`Ingrese el servicio que desea consultar:
     1. Chapería
     2. Pintura
@@ -326,9 +324,13 @@ while (opcion !== "0") {
       total = total + sumaCambio + sumaReparacion + sumaPintura;
       alert("El precio total es: $" + total);
       console.log(piezasSeleccionadas);
+      let id = idCotizacion++;
+      cotizaciones.push({ id, piezas: piezasSeleccionadas });
+      console.log(cotizaciones);
       break;
     default:
       alert("Ingrese un valor válido");
       break;
   }
+
 }

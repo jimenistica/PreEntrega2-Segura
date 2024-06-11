@@ -1,12 +1,191 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    
+    <title>EFG Estética Automotriz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Viga&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Viga&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+
 </head>
+
 <body>
+    <header>
+        <nav class="navbar">
+            <img src="./images/icons/logo.png" alt="logo-EFG">
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#cotizacion">Cotización</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section id="home" class="main-section main-section-dark section-home">
+        <div class="dark-div home-div">
+            <div class="home-div__text">
+                <div class="">
+                    <img src="./images/icons/logo.png" alt="logo">
+                    <h1>Estética Automotriz</h1>
+                </div>
+                <p>Somos una empresa familiar dedicada al cuidado y la estética de tu auto.
+                    Nos destacamos por nuestra prolijidad y responsabilidad. Cada vehículo que pasa por nuestras manos
+                    recibe una atención meticulosa y detallada, asegurando resultados que superan las expectativas.</p>
+                <h2>Cotizador</h2>
+                <p>Nuestro cotizador online te puede ayudar a tener un precio aproximado del costo de la reparación que
+                    necesitas, recuerda que está sujeto a modificación. ¡Envíanos tu foto para tener una cotización más
+                    precisa!</p>
+                <button class="btn btn-primary"><a href="#cotizacion">Ir a cotizar</a></button>
+            </div>
+            <img src="./images/photos/photo-infiniti-g37-coupe-outdoors.jpg" alt="">
+        </div>
+    </section>
+    <section id="servicios" class="main-section main-section-light">
+
+    </section>
+
+    <section id="cotizacion" class="main-section main-section-dark">
+        <div class="dark-div">
+            <h1>Cotizador</h1>
+            <div class="card-container">
+                <article class="card">
+                    <h2>Cambio</h2>
+                    <div>
+                        <label for="pieza-cambio">Pieza</label>
+                        <select name="pieza-cambio" id="pieza-cambio">
+                            <option value="paragolpes">Paragolpes</option>
+                            <option value="capot">Capot</option>
+                            <option value="guardabarros">Guardabarros</option>
+                            <option value="puerta">Puerta</option>
+                            <option value="tapa_baul">Tapa baúl</option>
+                            <option value="techo">Techo</option>
+                            <option value="faro">Faro</option>
+                            <option value="opticas">Óptica</option>
+                            <option value="manijas">Manija</option>
+                            <option value="levantavidrio">Levantavidrio</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="danio">Cantidad</label>
+                        <input type="number">
+                    </div>
+                    <div>
+                        <p>Valor del cambio: $$$$$</p>
+                        <p>Valor total del cambio: $$$$</p>
+                    </div>
+                    <button class="btn btn-secondary">Agregar</button>
+                </article>
+                <article class="card">
+                    <h2>Reparación</h2>
+                    <div>
+                        <label for="pieza-cambio">Pieza</label>
+                        <select name="pieza-cambio" id="pieza-cambio">
+                            <option value="paragolpes">Paragolpes</option>
+                            <option value="capot">Capot</option>
+                            <option value="guardabarros">Guardabarros</option>
+                            <option value="puerta">Puerta</option>
+                            <option value="tapa_baul">Tapa baúl</option>
+                            <option value="techo">Techo</option>
+                            <option value="faro">Faro</option>
+                            <option value="opticas">Óptica</option>
+                            <option value="manijas">Manija</option>
+                            <option value="levantavidrio">Levantavidrio</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="danio">% de daño</label>
+                        <input type="number">
+                    </div>
+                    <div>
+                        <p>Valor de la reparación: $$$$$</p>
+                        <p>Valor total de la reparación: $$$$</p>
+                    </div>
+
+                    <button class="btn btn-secondary">Agregar</button>
+                </article>
+                <article class="card">
+                    <h2>Pintura</h2>
+                    <div>
+                        <label for="pieza-cambio">Pieza</label>
+                        <select name="pieza-cambio" id="pieza-cambio">
+                            <option value="paragolpes">Paragolpes</option>
+                            <option value="capot">Capot</option>
+                            <option value="guardabarros">Guardabarros</option>
+                            <option value="puerta">Puerta</option>
+                            <option value="puerta">Puerta ambos lados</option>
+                            <option value="tapa_baul">Tapa baúl</option>
+                            <option value="techo">Techo</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="color">Color</label>
+                        <select name="color" id="color">
+                            <option value="blanco">Blanco</option>
+                            <option value="otro">Otro</option>
+                        </select>
+                    </div>
+                    <div>
+                        <p>Valor del paño: $$$$$</p>
+                        <p>Valor total de la pintura: $$$$</p>
+                    </div>
+
+                    <button class="btn btn-secondary">Agregar</button>
+                </article>
+            </div>
+            <div class="check">
+                <input type="checkbox" id="cotiz-seguro" name="cotiz-seguro">
+                <label for="cotiz-seguro">Cotización para seguros</label>
+            </div>
+            <button class=" btn btn-primary">Finalizar cotización</button>
+            <div class="alert">
+                <p>Recordá que esta cotización es aproximada y está sujeta a modificaición según cosidere el técnico</p>
+            </div>
+            <div class="div-cotización-final">
+                <div class="btn cotizacion-final"> Cotización N°: 1234</div>
+                <div class="btn cotizacion-final"> Cotización aproximada: $$$$$</div>
+            </div>
+        </div>
+    </section>
+    <section id="contacto" class="main-section main-section-light">
+        <img class="contact-img" src="./images/photos/photo-infiniti-g37-coupe-outdoors.jpg" alt="">
+        <form class="formulario" action="#">
+            <h1>Contactate con nosotros</h1>
+            <div>
+                <label for="name"></label>
+                <input type="text" id="name" name="name" placeholder="Tu nombre" required>
+                <label for="apellido"></label>
+                <input type="text" name="apellido" id="apellido" placeholder="Tu apellido" required>
+            </div>
+            <div>
+                <label for="email"></label>
+                <input type="email" name="email" id="email" placeholder="Tu mail" required>
+                <label for="tel"></label>
+                <input type="tel" name="tel" id="tel" placeholder="Tu teléfono">
+            </div>
+            <div>
+                <label for="codigo">N° de cotización:</label>
+                <input type="number" id="codigo" name="codigo" required>
+            </div>
+            <div>
+                <label for="imageUpload">Carga tu imagen aquí</label>
+                <input type="file" name="imageUpload" id="imageUpload">
+            </div>
+            <label for="mensaje"></label><br>
+            <textarea id="mensaje" name="mensaje" rows="4" cols="50" placeholder="Escribe aquí tu mensaje"
+                required></textarea>
+            <input class="btn btn-primary" type="submit" id="submit-button" value="Enviar" disabled> </input>
+        </form>
+
+    </section>
     <script src="./script.js"></script>
 </body>
+
 </html>
