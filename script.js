@@ -1,14 +1,31 @@
-//Cotizador aproximado de taller de chapería y pintura
+//FALTA:
+// -setear el %de daño para que vaya de 10 a 100.
+// -setear que al agregar la reparación el numero del inner se borre
+// ver cómo hago para poner el precio con . en los mil 323.000 y no 323000
+// Ver si conviene poner un botón de restauración o así está bien.
+
+// Que se guarde el array de cotizaciones en una base de datos o algo así. Cómo hago para qué lo mande a algún lado o lo guarde para que el
+//VER COMO ENVÍO EL FORMULARIO DE CONTACTO A UN MAIL.
 
 let cotizacion;
 let opcion;
 let sumaCambio = 0;
 let sumaReparacion = 0;
 let sumaPintura = 0;
-let total;
-let piezasSeleccionadas = []; 
-let cotizaciones=[];
-let idCotizacion=1;
+let total = 0;
+let piezasSeleccionadas = [];
+let cotizaciones = [];
+let idCotizacion = 1;
+
+document.addEventListener('DOMContentLoaded', (event) => {
+  const cotizacionesGuardadas = localStorage.getItem('cotizaciones'); //obtengo del localStorage las cotizaciones
+  if (cotizacionesGuardadas) { //si hay cotizaciones
+    cotizaciones = JSON.parse(cotizacionesGuardadas); //paso el json a objeto
+    idCotizacion = (cotizaciones.length) // evalúa si cotizaciones tiene elementos 
+    ? cotizaciones[cotizaciones.length - 1].id + 1 //true (arreglo novacío)= tomo el id del último elemento y le sumo 1
+    : 1; // false (arreglo vacío)= entonces idCotización=1
+  }
+});
 
 precioCambio = {
   paragolpes: 15000,
@@ -39,298 +56,171 @@ precioPintura = {
   capot: 140000,
   guardabarros: 90000,
   puerta: 110000,
+  puerta_ambos_lados: 187000,
   tapa_baul: 110000,
   techo: 140000,
 };
 
-function cotizarChaperia() {
-  let opcion2 = "";
-  while (opcion2 !== "0") {
-    opcion2 = prompt(`Cotización de chapería, ingrese la opción:
-                    1. Cambio
-                    2. Reparación
-                    0. Volver`);
-    switch (opcion2) {
-      case "1":
-        cotizarCambio();
-        break;
-      case "2":
-        cotizarReparacion();
-        break;
-      case "0":
-        alert("Volviendo al menú principal");
-        return;
-        break;
-      default:
-        alert("Ingrese un num válido");
-        break;
-    }
-  }
-}
 function cotizarCambio() {
-  let opcion3 = "";
-  while (opcion3 !== "0") {
-    opcion3 = prompt(`¿Qué pieza desea cambiar?
-                                    1. Paragolpes
-                                    2. Capot
-                                    3. Guardabarros
-                                    4. Puerta
-                                    5. Tapa baúl
-                                    6. Techo
-                                    7. Faro
-                                    8. Ópticas
-                                    9. Manijas
-                                    10.Levantavidrio
-                                    0. Volver`);
-    let pieza = "";
-    switch (opcion3) {
-      case "1":
-        pieza = "paragolpes";
-        break;
-      case "2":
-        pieza = "capot";
-        break;
-      case "3":
-        pieza = "guardabarros";
-        break;
-      case "4":
-        pieza = "puerta";
-        break;
-      case "5":
-        pieza = "tapa_baul";
-        break;
-      case "6":
-        pieza = "techo";
-        break;
-      case "7":
-        pieza = "faro";
-        break;
-      case "8":
-        pieza = "opticas";
-        break;
-      case "9":
-        pieza = "manijas";
-        break;
-      case "10":
-        pieza = "levantavidrio";
-        break;
-      case "0":
-        alert("Volviendo");
-        return;
-      default:
-        alert("Ingrese una opción válida");
-        break;
-    }
-    if (pieza !== "") {
-      sumaCambio += precioCambio[pieza];
-      piezasSeleccionadas.push({
-        tipo: "cambio",
-        pieza: pieza,
-        costo: precioCambio[pieza],
-      });
-      alert(`Agregado ${pieza}. Precio del cambio: $ ${precioCambio[pieza]}`);
-    }
-    alert("El precio total del cambio es: $" + sumaCambio);
+  const selectPieza = document.getElementById("pieza-cambio");
+  const pieza = selectPieza.value;
+
+  if (pieza !== "") {
+    sumaCambio += precioCambio[pieza];
+    piezasSeleccionadas.push({
+      tipo: "cambio",
+      pieza: pieza,
+      costo: precioCambio[pieza],
+    });
+    console.log(
+      `Agregado ${pieza}. Precio del cambio: $ ${precioCambio[pieza]}`
+    );
+    console.log("El precio total del cambio es: $" + sumaCambio);
+
+    const piezaTexto = selectPieza.selectedOptions[0].text;
+    const nuevoParrafo = document.createElement("p");
+    nuevoParrafo.textContent = `${piezaTexto}. Precio: $${precioCambio[pieza]}`;
+    document.getElementById("valores-cambio").appendChild(nuevoParrafo);
+
+    document.getElementById('total-cambio').textContent= `${sumaCambio}`;
   }
 }
 
 function cotizarReparacion() {
-  let opcion4;
-  while (opcion4 !== "0") {
-    opcion4 = prompt(`¿Qué pieza desea reparar?
-                                    1. Paragolpes
-                                    2. Capot
-                                    3. Guardabarros
-                                    4. Puerta
-                                    5. Tapa baúl
-                                    6. Techo
-                                    7. Faro
-                                    8. Ópticas
-                                    9. Manijas
-                                    10.Levantavidrio
-                                    0. Volver`);
-    let pieza = "";
-    switch (opcion4) {
-      case "1":
-        pieza = "paragolpes";
-        break;
-      case "2":
-        pieza = "capot";
-        break;
-      case "3":
-        pieza = "guardabarros";
-        break;
-      case "4":
-        pieza = "puerta";
-        break;
-      case "5":
-        pieza = "tapa_baul";
-        break;
-      case "6":
-        pieza = "techo";
-        break;
-      case "7":
-        pieza = "faro";
-        break;
-      case "8":
-        pieza = "opticas";
-        break;
-      case "9":
-        pieza = "manijas";
-        break;
-      case "10":
-        pieza = "levantavidrio";
-        break;
-      case "0":
-        alert("Volviendo");
-        return;
-      default:
-        alert("Ingrese una opción válida");
-        break;
-    }
-    if (pieza!=="") {
-      let costo = calcularDanio(precioReparacion[pieza]);
-      sumaReparacion += costo;
-      piezasSeleccionadas.push({
-        tipo: "reparacion",
-        pieza: pieza,
-        costo: costo,
-      });
-      alert(`Agregado ${pieza}. Precio de la reparación: $${costo}`);
-    }
-    alert("El precio total de la reparación es: $" + sumaReparacion);
+  const selectPieza = document.getElementById("pieza-reparacion");
+  const pieza = selectPieza.value;
+  if (pieza !== "") {
+    let costo = calcularDanio(precioReparacion[pieza]);
+    sumaReparacion += costo;
+    piezasSeleccionadas.push({
+      tipo: "reparacion",
+      pieza: pieza,
+      costo: costo,
+    });
+    console.log(`Agregado ${pieza}. Precio de la reparación: $${costo}`);
+    console.log("El precio total de la reparación es: $" + sumaReparacion);
+
+    const piezaTexto = selectPieza.selectedOptions[0].text;
+    const nuevoParrafo = document.createElement("p");
+    nuevoParrafo.textContent = `${piezaTexto}. Precio: $${costo}`;
+    document.getElementById("valores-reparacion").appendChild(nuevoParrafo);
+
+    document.getElementById('total-reparacion').textContent= `${sumaReparacion}`;
+
   }
 }
 function calcularDanio(base) {
-  let danio = prompt("¿Cuál es el porcentaje de daño aparente de la pieza?");
+  let danio = parseInt(document.getElementById("danio").value);
   let resultado = base + (base * danio) / 100;
   return resultado;
 }
+
 function cotizarPintura() {
-  let opcion3 = "";
-  while (opcion3 !== "0") {
-    opcion3 = prompt(`¿Qué pieza desea pintar?
-                            1. Paragolpes
-                            2. Capot
-                            3. Guardabarros
-                            4. Puerta
-                            5. Tapa baúl
-                            6. Techo
-                            0. Volver`);
-    let pieza = "";
-    switch (opcion3) {
-      case "1":
-        pieza = "paragolpes";
-        break;
-      case "2":
-        pieza = "capot";
-        break;
-      case "3":
-        pieza = "guardabarros";
-        break;
-      case "4":
-        pieza = "puerta";
-        let puerta = prompt(
-          "¿La puerta debe pintarse de ambos lados? 1: Sí, 2: No"
-        );
-        let costoColor= pinturaDeColor(precioPintura[pieza]);
-        if (puerta == "1") {
-          costoColor=costoColor*1.7
-          sumaPintura += costoColor;
-          piezasSeleccionadas.push({
-            tipo: "pintura",
-            pieza: pieza,
-            costo: costoColor,
-          });
-          alert(
-            `Agregado ${pieza}. Precio de la pintura: $${costoColor}`
-          );
-        } else {
-          sumaPintura += costoColor;
-          piezasSeleccionadas.push({
-            tipo: "pintura",
-            pieza: pieza,
-            costo: costoColor,
-          });
-          alert(
-            `Agregado ${pieza}. Precio de la pintura: $${costoColor}`
-          );
-        }
-      
-        alert(`El precio total de la pintura es: $${sumaPintura}`);
-        continue;
-      case "5":
-        pieza = "tapa_baul";
-        break;
-      case "6":
-        pieza = "techo";
-        break;
-      case "0":
-        alert("Volviendo");
-        return;
-      default:
-        alert("Ingrese una opción válida");
-        break;
-    }
-    if (pieza!=="") {
-      let costoColor= pinturaDeColor(precioPintura[pieza]);
-      sumaPintura += costoColor;
-      piezasSeleccionadas.push({
-        tipo: "pintura",
-        pieza: pieza,
-        costo: costoColor,
-      });
-      alert(
-        `Agregado ${pieza}. Precio de la pintura: $${costoColor}`
-      );
-    }
-    alert(`El precio total de la pintura es: $${sumaPintura}`);
+  const selectPieza = document.getElementById("pieza-pintura");
+  const pieza = selectPieza.value;
+  if (pieza !== "") {
+    let costoColor = pinturaDeColor(precioPintura[pieza]);
+    sumaPintura += costoColor;
+    piezasSeleccionadas.push({
+      tipo: "pintura",
+      pieza: pieza,
+      costo: costoColor,
+    });
+    console.log(`Agregado ${pieza}. Precio de la pintura: $${costoColor}`);
+
+    const piezaTexto = selectPieza.selectedOptions[0].text;
+    const nuevoParrafo = document.createElement("p");
+    nuevoParrafo.textContent = `${piezaTexto}. Precio: $${costoColor}`;
+    document.getElementById("valores-pintura").appendChild(nuevoParrafo);
+
+    document.getElementById('total-pintura').textContent= `${sumaPintura}`;
+
   }
+  console.log(`El precio total de la pintura es: $${sumaPintura}`);
 }
 
 function pinturaDeColor(sumaPintura) {
-  let color = prompt("La pintura es color (1) Blanco, (2) Otro");
-  if (color == 2) {
+  let color = document.getElementById("color").value;
+  if (color == "otro") {
     return (sumaPintura = sumaPintura * 1.3);
   } else {
     return sumaPintura;
   }
 }
 
-cotizacion = prompt(
-  "Indique si la cotización es (1) particular o (2) por Seguro"
-);
-if (cotizacion == 2) {
-  total = 2500;
-} else {
-  total = 0;
-}
+function cotizacionFinal() {
+  console.log(total);
+  console.log("C " + sumaCambio + " P " + sumaPintura + " R " + sumaReparacion);
+  total = total + sumaCambio + sumaReparacion + sumaPintura;
+  console.log("El precio total es: $" + total);
+  console.log(piezasSeleccionadas);
+  let id = idCotizacion++;
+  const cotizacion = {
+    id: id,
+    piezas: piezasSeleccionadas,
+    total: total,
+    fecha: new Date().toLocaleString()
+  };
+  cotizaciones.push(cotizacion);
+  console.log(cotizaciones);
 
-while (opcion !== "0") {
-  
- 
-  opcion = prompt(`Ingrese el servicio que desea consultar:
-    1. Chapería
-    2. Pintura
-    0. Finalizar cotización`);
-  switch (opcion) {
-    case "1":
-      cotizarChaperia();
-      break;
-    case "2":
-      cotizarPintura();
-      break;
-    case "0":
-      total = total + sumaCambio + sumaReparacion + sumaPintura;
-      alert("El precio total es: $" + total);
-      console.log(piezasSeleccionadas);
-      let id = idCotizacion++;
-      cotizaciones.push({ id, piezas: piezasSeleccionadas });
-      console.log(cotizaciones);
-      break;
-    default:
-      alert("Ingrese un valor válido");
-      break;
+  localStorage.setItem('cotizaciones', JSON.stringify(cotizaciones));
+
+  document.getElementById('cotizacion-id').textContent= `${id}`;
+  document.getElementById('total-final').textContent= `${total}`;
+  mostrarCotizaciones()
+  resetear();
+}
+function cotizSeguro() {
+  const seguro = document.getElementById("cotiz-seguro");
+  if (seguro.checked) {
+    total = total + 2500;
+    console.log(total);
+  } else {
+    total = total;
+    console.log(total);
   }
-
 }
+function resetear() {
+  sumaCambio = 0;
+  sumaPintura = 0;
+  sumaReparacion = 0;
+  total = 0;
+  piezasSeleccionadas = [];
+
+  document.getElementById('total-cambio').textContent= `0`;
+  document.getElementById('total-reparacion').textContent= `0`;
+  document.getElementById('total-pintura').textContent= `0`;
+  document.getElementById('valores-cambio').innerHTML='';
+  document.getElementById('valores-reparacion').innerHTML='';
+  document.getElementById('valores-pintura').innerHTML=''
+}
+
+
+
+function mostrarCotizaciones() {
+  
+  const cotizacionesGuardadas = JSON.parse(localStorage.getItem('cotizaciones'));
+
+  if (cotizacionesGuardadas && cotizacionesGuardadas.length) {
+    cotizacionesGuardadas.forEach(cotizacion => {
+      console.log(`Cotización N°: ${cotizacion.id}, Fecha: ${cotizacion.fecha}, Total: $${cotizacion.total}`);
+    });
+  } else {
+    console.log('No hay cotizaciones guardadas');
+  }
+};
+
+document
+  .getElementById("agregar-cambio")
+  .addEventListener("click", cotizarCambio);
+document
+  .getElementById("agregar-reparacion")
+  .addEventListener("click", cotizarReparacion);
+document
+  .getElementById("agregar-pintura")
+  .addEventListener("click", cotizarPintura);
+document.getElementById("cotiz-seguro").addEventListener("change", cotizSeguro);
+document
+  .getElementById("cotizacion-final")
+  .addEventListener("click", cotizacionFinal);

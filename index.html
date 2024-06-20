@@ -73,21 +73,18 @@
                             <option value="levantavidrio">Levantavidrio</option>
                         </select>
                     </div>
-                    <div>
-                        <label for="danio">Cantidad</label>
-                        <input type="number">
+                    <div id="valores-cambio">
                     </div>
                     <div>
-                        <p>Valor del cambio: $$$$$</p>
-                        <p>Valor total del cambio: $$$$</p>
+                        <p>Valor total: $<span id="total-cambio">0</span></p>
                     </div>
-                    <button class="btn btn-secondary">Agregar</button>
+                    <button id="agregar-cambio" class="btn btn-secondary">Agregar</button>
                 </article>
                 <article class="card">
                     <h2>Reparación</h2>
                     <div>
-                        <label for="pieza-cambio">Pieza</label>
-                        <select name="pieza-cambio" id="pieza-cambio">
+                        <label for="pieza-reparacion">Pieza</label>
+                        <select name="pieza-reparacion" id="pieza-reparacion">
                             <option value="paragolpes">Paragolpes</option>
                             <option value="capot">Capot</option>
                             <option value="guardabarros">Guardabarros</option>
@@ -101,26 +98,26 @@
                         </select>
                     </div>
                     <div>
-                        <label for="danio">% de daño</label>
-                        <input type="number">
+                        <label  for="danio">% de daño</label>
+                        <input type="number" id="danio" min="10" max="100">
+                    </div>
+                    <div id="valores-reparacion">
                     </div>
                     <div>
-                        <p>Valor de la reparación: $$$$$</p>
-                        <p>Valor total de la reparación: $$$$</p>
+                        <p>Valor total: $<span id="total-reparacion">0</span></p>
                     </div>
-
-                    <button class="btn btn-secondary">Agregar</button>
+                    <button id="agregar-reparacion" class="btn btn-secondary">Agregar</button>
                 </article>
                 <article class="card">
                     <h2>Pintura</h2>
                     <div>
-                        <label for="pieza-cambio">Pieza</label>
-                        <select name="pieza-cambio" id="pieza-cambio">
+                        <label for="pieza-pintura">Pieza</label>
+                        <select name="pieza-pintura" id="pieza-pintura">
                             <option value="paragolpes">Paragolpes</option>
                             <option value="capot">Capot</option>
                             <option value="guardabarros">Guardabarros</option>
                             <option value="puerta">Puerta</option>
-                            <option value="puerta">Puerta ambos lados</option>
+                            <option value="puerta_ambos_lados">Puerta ambos lados</option>
                             <option value="tapa_baul">Tapa baúl</option>
                             <option value="techo">Techo</option>
                         </select>
@@ -132,25 +129,25 @@
                             <option value="otro">Otro</option>
                         </select>
                     </div>
-                    <div>
-                        <p>Valor del paño: $$$$$</p>
-                        <p>Valor total de la pintura: $$$$</p>
+                    <div id="valores-pintura">
                     </div>
-
-                    <button class="btn btn-secondary">Agregar</button>
+                    <div>
+                        <p>Valor total: $<span id="total-pintura">0</span></p>
+                    </div>
+                    <button id="agregar-pintura" class="btn btn-secondary">Agregar</button>
                 </article>
             </div>
             <div class="check">
                 <input type="checkbox" id="cotiz-seguro" name="cotiz-seguro">
                 <label for="cotiz-seguro">Cotización para seguros</label>
             </div>
-            <button class=" btn btn-primary">Finalizar cotización</button>
+            <button id="cotizacion-final" class=" btn btn-primary">Finalizar cotización</button>
             <div class="alert">
                 <p>Recordá que esta cotización es aproximada y está sujeta a modificaición según cosidere el técnico</p>
             </div>
             <div class="div-cotización-final">
-                <div class="btn cotizacion-final"> Cotización N°: 1234</div>
-                <div class="btn cotizacion-final"> Cotización aproximada: $$$$$</div>
+                <div class="btn cotizacion-final"> Cotización N°: <span id="cotizacion-id"></span></div>
+                <div class="btn cotizacion-final"> Cotización aproximada: $<span id="total-final"></span></div>
             </div>
         </div>
     </section>
