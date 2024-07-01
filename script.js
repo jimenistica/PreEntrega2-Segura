@@ -1,11 +1,13 @@
 //FALTA:
 // -setear el %de daño para que vaya de 10 a 100.
-// -setear que al agregar la reparación el numero del inner se borre
-// ver cómo hago para poner el precio con . en los mil 323.000 y no 323000
+// -setear que al agregar la reparación el numero del input num se borre
+// ver cómo hago para poner el precio con . en los mil ej: 323.000 y no 323000
 // Ver si conviene poner un botón de restauración o así está bien.
 
+//-->> PARA SETEAR OBJ: stringify, PARA GETTEAR OBJETOS: parse
+
 // Que se guarde el array de cotizaciones en una base de datos o algo así. Cómo hago para qué lo mande a algún lado o lo guarde para que el
-//VER COMO ENVÍO EL FORMULARIO DE CONTACTO A UN MAIL.
+//VER COMO ENVÍO EL FORMULARIO DE CONTACTO A UN MAIL. con esta librería https://smtpjs.com/. o con la que me dio chatgpt
 
 let cotizacion;
 let opcion;
@@ -104,7 +106,6 @@ function cotizarReparacion() {
     const nuevoParrafo = document.createElement("p");
     nuevoParrafo.textContent = `${piezaTexto}. Precio: $${costo}`;
     document.getElementById("valores-reparacion").appendChild(nuevoParrafo);
-
     document.getElementById('total-reparacion').textContent= `${sumaReparacion}`;
 
   }
@@ -149,6 +150,13 @@ function pinturaDeColor(sumaPintura) {
 }
 
 function cotizacionFinal() {
+  Swal.fire({
+    title: 'Info importante',
+    text: 'Recordá que esta cotización es aproximada y está sujeta a modificaición según cosidere el técnico',
+    icon: 'info',
+    confirmButtonText: 'Entendido'
+  })
+
   console.log(total);
   console.log("C " + sumaCambio + " P " + sumaPintura + " R " + sumaReparacion);
   total = total + sumaCambio + sumaReparacion + sumaPintura;
@@ -200,14 +208,14 @@ function resetear() {
 
 function mostrarCotizaciones() {
   
-  const cotizacionesGuardadas = JSON.parse(localStorage.getItem('cotizaciones'));
+  const cotizacionesGuardadas = JSON.parse(localStorage.getItem('cotizaciones')); //obtengo el array como objeto
 
-  if (cotizacionesGuardadas && cotizacionesGuardadas.length) {
-    cotizacionesGuardadas.forEach(cotizacion => {
+  if (cotizacionesGuardadas && cotizacionesGuardadas.length) { //si el objeto no es undefined o vacío
+    cotizacionesGuardadas.forEach(cotizacion => { //itero e imprimo
       console.log(`Cotización N°: ${cotizacion.id}, Fecha: ${cotizacion.fecha}, Total: $${cotizacion.total}`);
     });
   } else {
-    console.log('No hay cotizaciones guardadas');
+    console.log('No hay cotizaciones guardadas'); //este no aparece nunca porque esta función se llama siempre despues de finalizar una cotización
   }
 };
 
@@ -224,3 +232,4 @@ document.getElementById("cotiz-seguro").addEventListener("change", cotizSeguro);
 document
   .getElementById("cotizacion-final")
   .addEventListener("click", cotizacionFinal);
+
