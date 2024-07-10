@@ -2,12 +2,12 @@
 // -setear el %de daño para que vaya de 10 a 100.
 // -setear que al agregar la reparación el numero del input num se borre
 // ver cómo hago para poner el precio con . en los mil ej: 323.000 y no 323000
-// Ver si conviene poner un botón de restauración o así está bien.
 
 //-->> PARA SETEAR OBJ: stringify, PARA GETTEAR OBJETOS: parse
 
-// Que se guarde el array de cotizaciones en una base de datos o algo así. Cómo hago para qué lo mande a algún lado o lo guarde para que el
-//VER COMO ENVÍO EL FORMULARIO DE CONTACTO A UN MAIL. con esta librería https://smtpjs.com/. o con la que me dio chatgpt
+//Incorporar la imagen al mail
+//Poner un mail automático al usuario
+//crear el JSON para consultarlo (en lugar de API)
 
 let cotizacion;
 let opcion;
@@ -152,7 +152,7 @@ function pinturaDeColor(sumaPintura) {
 function cotizacionFinal() {
   Swal.fire({
     title: 'Info importante',
-    text: 'Recordá que esta cotización es aproximada y está sujeta a modificaición según cosidere el técnico',
+    text: 'Recordá que esta cotización es aproximada y está sujeta a modificación según cosidere el técnico',
     icon: 'info',
     confirmButtonText: 'Entendido'
   })
@@ -172,7 +172,7 @@ function cotizacionFinal() {
   cotizaciones.push(cotizacion);
   console.log(cotizaciones);
 
-  localStorage.setItem('cotizaciones', JSON.stringify(cotizaciones));
+  localStorage.setItem('cotizaciones', JSON.stringify(cotizaciones)); // seteo el objeto y lo paso a JSON (str)
 
   document.getElementById('cotizacion-id').textContent= `${id}`;
   document.getElementById('total-final').textContent= `${total}`;
@@ -232,4 +232,103 @@ document.getElementById("cotiz-seguro").addEventListener("change", cotizSeguro);
 document
   .getElementById("cotizacion-final")
   .addEventListener("click", cotizacionFinal);
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    emailjs.init('AnaHu5SM9sMqbeAHE');
+    
+    document.querySelector('.formulario').addEventListener('submit', function(event) {
+        event.preventDefault(); 
 
+        // Capturo los datos del formulario usando FormData
+        const formData = new FormData(this);
+        const formObject = {};
+
+        // Convierto FormData a objeto para poder acceder a los valores
+        formData.forEach((value, key) => {
+            formObject[key] = value;
+        });
+
+        const cotizacionID = formObject.codigo;
+        const cotizacionesGuardadas = JSON.parse(localStorage.getItem('cotizaciones'));
+        if (cotizacionesGuardadas) {
+          const cotizacion = cotizacionesGuardadas.find(cot => cot.id == cotizacionID);
+          formObject['cotizacion']= JSON.stringify(cotizacion);
+          formObject['total'] = cotizacion.total;
+        }
+          console.log(formObject);
+
+          // obtengo el archivo de imagen seleccionado
+        const imageFile = formData.get('imageUpload');
+
+        // Subo el archivo a Imgur y obtengo la URL
+        handleImageUpload(imageFile)
+            .then(imageUrl => {
+                // Datos para enviar con EmailJS, incluyendo la URL de la imagen
+                const templateParams = {
+                    name: formObject.name,
+                    apellido: formObject.apellido,
+                    email: formObject.email,
+                    tel: formObject.tel,
+                    cotizacion: formObject.cotizacion,
+                    total: formObject.total,
+                    codigo: formObject.codigo,
+                    mensaje: formObject.mensaje,
+                    imageUrl: imageUrl
+                };
+
+                console.log(templateParams);
+
+                // Enviar el correo usando EmailJS
+                return emailjs.send('service_keci9hp', 'template_1t7vygr', templateParams, { attachments: [{ name: imageFile.name, data: imageFile }] });
+            })
+            .then(function(response) {
+                console.log('Correo enviado con éxito!', response.status, response.text);
+                alert('¡Correo enviado con éxito!');
+            })
+            .catch(function(error) {
+                console.error('Error al enviar el correo:', error);
+                alert('Error al enviar el correo. Por favor, inténtalo nuevamente más tarde.');
+            });
+
+        // Resetear el formulario después de enviar
+        this.reset();
+    });
+
+    // Función asincrónica para manejar la carga de la imagen y obtener la URL
+    async function handleImageUpload(imageFile) {
+        try {
+            const imageUrl = await uploadToImgur(imageFile);
+            console.log('Imagen subida correctamente:', imageUrl);
+            return imageUrl; // Devuelve la URL de la imagen subida
+        } catch (error) {
+            console.error('Error al subir la imagen:', error);
+            throw error; // Propaga el error para manejarlo más arriba si es necesario
+        }
+    }
+
+    // Función para subir la imagen a Imgur
+    async function uploadToImgur(imageFile) {
+        const clientId = 'e95ceface8033e2'; 
+        const url = 'https://api.imgur.com/3/image';
+        
+        const formData = new FormData();
+        formData.append('image', imageFile);
+      
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                Authorization: `Client-ID ${clientId}`
+            },
+            body: formData
+        });
+      
+        const data = await response.json();
+        if (data.success) {
+            return data.data.link; // Devuelve la URL pública de la imagen subida
+        } else {
+            throw new Error('Error al subir la imagen a Imgur');
+        }
+    }
+});
+
+  

@@ -14,7 +14,6 @@
         href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Viga&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="sweetalert2.min.css">
 
 </head>
 
@@ -178,11 +177,12 @@
             <label for="mensaje"></label><br>
             <textarea id="mensaje" name="mensaje" rows="4" cols="50" placeholder="Escribe aquí tu mensaje"
                 required></textarea>
-            <input class="btn btn-primary" type="submit" id="submit-button" value="Enviar" disabled> </input>
+            <input class="btn btn-primary" type="submit" id="submit-button" value="Enviar"> </input>
         </form>
 
     </section>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script src="./script.js"></script>
 </body>
 
