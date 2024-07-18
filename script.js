@@ -1,15 +1,3 @@
-//FALTA:
-// -setear el %de daño para que vaya de 10 a 100.
-// -setear que al agregar la reparación el numero del input num se borre
-// ver cómo hago para poner el precio con . en los mil ej: 323.000 y no 323000
-//Poner un mail automático al usuario
-
-//-->> PARA SETEAR OBJ: stringify, PARA GETTEAR OBJETOS: parse
-
-
-
-
-
 let cotizacion;
 let opcion;
 let sumaCambio = 0;
