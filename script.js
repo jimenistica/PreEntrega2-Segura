@@ -2,12 +2,13 @@
 // -setear el %de daño para que vaya de 10 a 100.
 // -setear que al agregar la reparación el numero del input num se borre
 // ver cómo hago para poner el precio con . en los mil ej: 323.000 y no 323000
+//Poner un mail automático al usuario
 
 //-->> PARA SETEAR OBJ: stringify, PARA GETTEAR OBJETOS: parse
 
-//Incorporar la imagen al mail
-//Poner un mail automático al usuario
-//crear el JSON para consultarlo (en lugar de API)
+
+
+
 
 let cotizacion;
 let opcion;
@@ -283,11 +284,21 @@ document
             })
             .then(function(response) {
                 console.log('Correo enviado con éxito!', response.status, response.text);
-                alert('¡Correo enviado con éxito!');
+                Swal.fire({
+                  title: 'Enviado',
+                  text: 'Correo enviado con éxito',
+                  icon: 'success',
+                  confirmButtonText: 'Ok'
+                })
             })
             .catch(function(error) {
                 console.error('Error al enviar el correo:', error);
-                alert('Error al enviar el correo. Por favor, inténtalo nuevamente más tarde.');
+                Swal.fire({
+                  title: 'Error',
+                  text: 'No se pudo enviar el correo',
+                  icon: 'error',
+                  confirmButtonText: 'Ok'
+                })
             });
 
         // Resetear el formulario después de enviar
